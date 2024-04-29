@@ -223,13 +223,18 @@ export async function deleteSavedPost(savedRecordId: string) {
   }
 }
 // ============================== GETTING THE DETAILS OF A POST
-export async function getPostById(postId: string) {
+export async function getPostById(postId?: string) {
+  if (!postId) throw Error;
+
   try {
     const post = await databases.getDocument(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
       postId
     );
+
+    if (!post) throw Error;
+
     return post;
   } catch (error) {
     console.log(error);
@@ -299,18 +304,23 @@ export async function deletePost(postId: string, imageId: string) {
     console.log(error);
   }
 }
+
 export async function getInfinitePosts({ pageParam }: { pageParam: number }) {
   const queries: any[] = [Query.orderDesc("$updatedAt"), Query.limit(10)];
+
   if (pageParam) {
     queries.push(Query.cursorAfter(pageParam.toString()));
   }
+
   try {
     const posts = await databases.listDocuments(
       appwriteConfig.databaseId,
       appwriteConfig.postCollectionId,
       queries
     );
+
     if (!posts) throw Error;
+
     return posts;
   } catch (error) {
     console.log(error);
