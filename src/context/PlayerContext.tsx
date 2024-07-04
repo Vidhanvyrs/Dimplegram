@@ -130,6 +130,7 @@ const PlayerContextProvider: React.FC<PlayerContextProviderProps> = ({
       audioRef.current.currentTime =
         (e.nativeEvent.offsetX / seekBg.current.offsetWidth) *
         audioRef.current.duration;
+      console.log(audioRef.current.currentTime);
     }
   };
 
@@ -152,6 +153,7 @@ const PlayerContextProvider: React.FC<PlayerContextProviderProps> = ({
             minute: Math.floor(audioRef.current.duration / 60),
           },
         });
+        console.log(time);
       }
     };
 
@@ -161,11 +163,11 @@ const PlayerContextProvider: React.FC<PlayerContextProviderProps> = ({
     }
 
     // Clean up the event listener on component unmount
-    // return () => {
-    //   if (audioElement) {
-    //     audioElement.ontimeupdate = null;
-    //   }
-    // };
+    return () => {
+      if (audioElement) {
+        audioElement.ontimeupdate = null;
+      }
+    };
   }, [audioRef]);
 
   const contextValue: PlayerContextType = {
