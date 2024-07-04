@@ -161,11 +161,11 @@ const PlayerContextProvider: React.FC<PlayerContextProviderProps> = ({
     }
 
     // Clean up the event listener on component unmount
-    return () => {
-      if (audioElement) {
-        audioElement.ontimeupdate = null;
-      }
-    };
+    // return () => {
+    //   if (audioElement) {
+    //     audioElement.ontimeupdate = null;
+    //   }
+    // };
   }, [audioRef]);
 
   const contextValue: PlayerContextType = {
