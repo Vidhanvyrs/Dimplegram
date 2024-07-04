@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import { useContext } from "react";
 import { myassets } from "../../../public/spotify-assets/assets/assets";
 import { PlayerContext } from "@/context/PlayerContext";
 
@@ -7,7 +7,18 @@ const Player = () => {
   if (!context) {
     return <div>Loading...</div>;
   }
-  const { track, seekBar, seekBg, playStatus, play, pause, time, previous, next, seekSong } = context;
+  const {
+    track,
+    seekBar,
+    seekBg,
+    playStatus,
+    play,
+    pause,
+    time,
+    previous,
+    next,
+    seekSong,
+  } = context;
   return (
     <div className="fixed bottom-0 left-56 right-0 h-[10%] bg-black flex justify-between items-center text-white px-4 gap-14">
       <div className="items-center hidden gap-4 lg:flex">
@@ -24,7 +35,12 @@ const Player = () => {
             src={myassets.shuffle_icon}
             alt=""
           />
-          <img onClick={previous} className="w-4 cursor-pointer" src={myassets.prev_icon} alt="" />
+          <img
+            onClick={previous}
+            className="w-4 cursor-pointer"
+            src={myassets.prev_icon}
+            alt=""
+          />
           {playStatus ? (
             <img
               onClick={pause}
@@ -40,7 +56,12 @@ const Player = () => {
               alt=""
             />
           )}
-          <img onClick={next} className="w-4 cursor-pointer" src={myassets.next_icon} alt="" />
+          <img
+            onClick={next}
+            className="w-4 cursor-pointer"
+            src={myassets.next_icon}
+            alt=""
+          />
           <img className="w-4 cursor-pointer" src={myassets.loop_icon} alt="" />
         </div>
         <div className="flex items-center gap-5">

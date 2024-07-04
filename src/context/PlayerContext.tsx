@@ -1,5 +1,5 @@
 import { songsData } from "../../public/spotify-assets/assets/assets";
-import React, {
+import {
   createContext,
   ReactNode,
   useRef,
