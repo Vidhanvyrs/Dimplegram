@@ -18,7 +18,7 @@ const LeftSidebar = () => {
 
   const { user } = useUserContext();
   return (
-    <nav className="leftsidebar">
+    <nav className="overflow-auto leftsidebar">
       <div className="flex flex-col gap-11">
         <Link to="/" className="flex items-center gap-3">
           <img

@@ -5,7 +5,7 @@ import SigninForm from "./_auth/forms/SigninForm";
 import SignupForm from "./_auth/forms/SignupForm";
 //while here we imported it as a named import
 import {
-  AllUsers,
+  Songs,
   CreatePost,
   Explore,
   Home,
@@ -18,9 +18,10 @@ import AuthLayout from "./_auth/AuthLayout";
 import RootLayout from "./_root/RootLayout";
 import { Toaster } from "@/components/ui/toaster";
 import EditPost from "./_root/pages/EditPost";
+// import Songs from "./_root/pages/Songs";
 const App = () => {
   return (
-    <main className="flex h-screen">
+    <main className="flex h-screen overflow-auto lg:overflow-hidden">
       <Routes>
         {/* public routes */}
         <Route element={<AuthLayout />}>
@@ -32,7 +33,7 @@ const App = () => {
           <Route index element={<Home />} />
           <Route path="/explore" element={<Explore />} />
           <Route path="/saved" element={<Saved />} />
-          <Route path="/all-users" element={<AllUsers />} />
+          <Route path="/songs/*" element={<Songs />} />
           <Route path="/create-post" element={<CreatePost />} />
           <Route path="/update-post/:id" element={<EditPost />} />
           <Route path="/posts/:id" element={<PostDetails />} />

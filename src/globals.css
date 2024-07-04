@@ -4,6 +4,10 @@
 @tailwind components;
 @tailwind utilities;
 
+::-webkit-scrollbar {
+  display: none;
+}
+
 @layer base {
   * {
     @apply box-border p-0 m-0 list-none scroll-smooth;

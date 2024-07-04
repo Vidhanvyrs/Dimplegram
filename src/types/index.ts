@@ -55,3 +55,4 @@ export type INewUser = {
   username: string;
   password: string;
 };
+
