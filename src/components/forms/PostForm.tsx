@@ -14,6 +14,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "../ui/textarea";
 import FileUploader from "../shared/FileUploader";
+import Loader from "../shared/Loader";
 import { PostValidation } from "@/lib/validation";
 import { Models } from "appwrite";
 import {
@@ -152,7 +153,7 @@ const PostForm = ({ post, action }: PostFormProps) => {
             className="shad-button_primary whitespace-nowrap"
             disabled={isLoadingCreate || isLoadingUpdate}
           >
-            {isLoadingCreate || (isLoadingUpdate && "Loading...")}
+            {(isLoadingCreate || isLoadingUpdate) && <Loader />}
             {action} Post
           </Button>
         </div>

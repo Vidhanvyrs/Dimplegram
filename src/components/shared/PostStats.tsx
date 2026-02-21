@@ -6,7 +6,7 @@ import {
 } from "@/lib/react-query/queriesAndMutations";
 import { checkIsLiked } from "@/lib/utils";
 import { Models } from "appwrite";
-import { Loader } from "lucide-react";
+import Loader from "@/components/shared/Loader";
 import { useEffect, useState } from "react";
 type PostStatsProps = {
   post?: Models.Document;
@@ -14,7 +14,7 @@ type PostStatsProps = {
 };
 const PostStats = ({ post, userId }: PostStatsProps) => {
   //what are the current likes on the specific post
-  const likesList = post?.likes.map((user: Models.Document) => user.$id);
+  const likesList = (post?.likes || []).map((user: Models.Document) => user.$id);
   const [likes, setLikes] = useState<string[]>(likesList);
   const [isSaved, setIsSaved] = useState(false);
 

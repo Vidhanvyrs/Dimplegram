@@ -1,4 +1,4 @@
-import { ID, Query } from "appwrite";
+import { ID, Query, Permission, Role } from "appwrite";
 import { INewPost, INewUser, IUpdatePost, IUpdateUser } from "@/types";
 import { account, appwriteConfig, avatars, databases, storage } from "./config";
 export async function createUserAccount(user: INewUser) {
@@ -122,7 +122,8 @@ export async function uploadFile(file: File) {
     const uploadedFile = await storage.createFile(
       appwriteConfig.storageId,
       ID.unique(),
-      file
+      file,
+      [Permission.read(Role.any())]
     );
 
     return uploadedFile;
@@ -130,17 +131,13 @@ export async function uploadFile(file: File) {
     console.log(error);
   }
 }
-//here it is not an async function because we are not awaiting
-//for something due to using async we got the imageUrl Error
+//using getFileView instead of getFilePreview because
+//image transformations require a paid Appwrite plan
 export function getFilePreview(fileId: string) {
   try {
-    const fileUrl = storage.getFilePreview(
+    const fileUrl = storage.getFileView(
       appwriteConfig.storageId,
-      fileId,
-      2000,
-      2000,
-      "top",
-      100
+      fileId
     );
 
     if (!fileUrl) throw Error;
@@ -300,6 +297,8 @@ export async function deletePost(postId: string, imageId: string) {
       appwriteConfig.postCollectionId,
       postId
     );
+    await deleteFile(imageId);
+    return { status: "ok" };
   } catch (error) {
     console.log(error);
   }

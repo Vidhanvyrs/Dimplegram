@@ -1,18 +1,30 @@
 import PostStats from "@/components/shared/PostStats";
 import { Button } from "@/components/ui/button";
 import { useUserContext } from "@/context/AuthContext";
-import { useGetPostById } from "@/lib/react-query/queriesAndMutations";
+import { useDeletePost, useGetPostById } from "@/lib/react-query/queriesAndMutations";
 import { multiFormatDateString } from "@/lib/utils";
-import { Loader } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import Loader from "@/components/shared/Loader";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 const PostDetails = () => {
   //we need to fetch the details of the post
   const { id } = useParams();
   const { data: post, isPending } = useGetPostById(id || "");
   const { user } = useUserContext();
+  const { mutate: deletePost } = useDeletePost();
+  const navigate = useNavigate();
 
-  const handleDeletePost = () => {};
+  const handleDeletePost = () => {
+    if (!post) return;
+    deletePost(
+      { postId: post.$id, imageId: post.imageId },
+      {
+        onSuccess: () => {
+          navigate("/");
+        },
+      }
+    );
+  };
 
   return (
     <div className="post_details-container">
@@ -66,9 +78,8 @@ const PostDetails = () => {
                 <Button
                   onClick={handleDeletePost}
                   variant="ghost"
-                  className={`ghost_details-delete_btn ${
-                    user.id !== post?.creator.$id && "hidden"
-                  }`}
+                  className={`ghost_details-delete_btn ${user.id !== post?.creator.$id && "hidden"
+                    }`}
                 >
                   <img
                     src="/assets/icons/delete.svg"
